@@ -28,5 +28,11 @@ class DeleteProduct(generics.DestroyAPIView):
 class CreateProduct(generics.CreateAPIView):
     queryset = Product.objects.all()
     permission_classes = [AllowAny]
-    serializer_class = CreateProductSerializer
+
+    def create(self, request, *args, **kwargs):
+        write_serializer = CreateProductSerializer(data=request.data)
+        write_serializer.is_valid(raise_exception=True)
+        instance = self.perform_create(write_serializer)
+        read_serializer = ProductSerialzier(instance)
+        return Response(read_serializer.data)
 

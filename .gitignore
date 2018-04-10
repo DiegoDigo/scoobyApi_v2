@@ -1,0 +1,12 @@
+.idea/
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/scoobyApi_v2.iml
+.idea/workspace.xml
+product/__pycache__/
+product/api/__pycache__/
+product/migrations/__pycache__/
+scoobyApi_v2/__pycache__/
+*/migrations/[0-9]*
+db.sqlite3
