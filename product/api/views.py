@@ -27,4 +27,10 @@ class DeleteProduct(generics.DestroyAPIView):
 class CreateProduct(generics.CreateAPIView):
     serializer_class = CreateProductSerializer
     queryset = Product.objects.all()
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+
+
+class UpdateProduct(generics.UpdateAPIView):
+    serializer_class = CreateProductSerializer
+    queryset = Product.objects.all()
+    permission_classes = [IsAuthenticated]
