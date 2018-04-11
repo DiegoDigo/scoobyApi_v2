@@ -33,6 +33,7 @@ THIDRS_APPS = [
 
 MEU_APPS = [
     'product',
+    'custumer',
 ]
 
 INSTALLED_APPS = NATIVE_APPS + THIDRS_APPS + MEU_APPS
@@ -111,6 +112,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = "custumer.User"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
