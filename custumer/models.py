@@ -1,7 +1,16 @@
+from cloudinary.models import CloudinaryField
 from django.db import models
+from datetime import datetime
+from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager
+)
+
+ANIMAL = (
+    ('dog', 'Cachorro'),
+    ('cat', 'Gato'),
+    ('other', 'Outros'),
 )
 
 
@@ -82,3 +91,37 @@ class User(AbstractBaseUser):
     class Meta:
         verbose_name = 'usuario'
         verbose_name_plural = 'usuarios'
+
+
+class Pet(models.Model):
+    animal = models.CharField('tipo animal', choices=ANIMAL, max_length=5)
+    namepet = models.CharField('nome: ', max_length=50)
+    birthdate = models.DateField('Data nascimento', auto_now=False, auto_now_add=False)
+    age = models.PositiveIntegerField('idade', null=True, blank=True)
+    image = CloudinaryField('image', blank=True, null=True)
+
+    def __str__(self):
+        return self.namepet
+
+    def save(self, *args, **kwargs):
+        # self.age = datetime.today().year - self.birthdate.year
+        super(Pet, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Animal'
+        verbose_name_plural = 'Animais'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name="Usuario", on_delete=models.CASCADE)
+    fullname = models.CharField('nome', max_length=100)
+    phone = models.CharField('Telefone', max_length=15)
+    image = CloudinaryField('image', blank=True, null=True)
+    pet = models.ManyToManyField(Pet, related_name="pets", verbose_name="Animais", blank=True)
+
+    def __str__(self):
+        return self.fullname
+
+    class Meta:
+        verbose_name_plural = "Perfis"
+        verbose_name = "Perfil"
