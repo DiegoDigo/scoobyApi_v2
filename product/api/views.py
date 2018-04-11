@@ -1,5 +1,4 @@
 from rest_framework import generics
-from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import ProductSerialzier, CreateProductSerializer
 from product.models import Product
@@ -22,17 +21,10 @@ class DeleteProduct(generics.DestroyAPIView):
     lookup_field = 'pk'
     serializer_class = ProductSerialzier
     queryset = Product.objects.all()
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 
 class CreateProduct(generics.CreateAPIView):
+    serializer_class = CreateProductSerializer
     queryset = Product.objects.all()
     permission_classes = [AllowAny]
-
-    def create(self, request, *args, **kwargs):
-        write_serializer = CreateProductSerializer(data=request.data)
-        write_serializer.is_valid(raise_exception=True)
-        instance = self.perform_create(write_serializer)
-        read_serializer = ProductSerialzier(instance)
-        return Response(read_serializer.data)
-

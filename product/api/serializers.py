@@ -1,11 +1,13 @@
 from rest_framework import serializers
 from product.models import Product, TypeProduct
+from validators.validSerializers import RelationModelSerializer
 
 
-class TypeProductSerializer(serializers.ModelSerializer):
+class TypeProductSerializer(RelationModelSerializer):
     class Meta:
         model = TypeProduct
         fields = '__all__'
+        read_only_fields = ('id',)
 
 
 class ProductSerialzier(serializers.ModelSerializer):
@@ -17,15 +19,8 @@ class ProductSerialzier(serializers.ModelSerializer):
 
 
 class CreateProductSerializer(serializers.ModelSerializer):
-
-    type_product = TypeProductSerializer(read_only=True)
+    type_product = TypeProductSerializer(read_only=False, is_relation=True)
 
     class Meta:
         model = Product
         fields = '__all__'
-
-    def create(self, validated_data):
-        type_prd = validated_data['type_product']
-        type_product = TypeProduct.objects.create(**type_prd)
-        Product.objects.create(type_product=type_product, **validated_data)
-        return Product

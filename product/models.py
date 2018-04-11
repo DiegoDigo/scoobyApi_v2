@@ -1,5 +1,6 @@
 from cloudinary.models import CloudinaryField
 from django.db import models
+from product.querys import ProductQuerySet
 
 
 class TypeProduct(models.Model):
@@ -26,6 +27,7 @@ class Product(models.Model):
     stock = models.IntegerField('estoque')
     image = CloudinaryField('image', null=True, blank=True)
     type_product = models.ForeignKey(TypeProduct, on_delete=models.CASCADE, verbose_name="tipo de produto")
+    objects = ProductQuerySet.as_manager()
 
     def __str__(self):
         return self.name
