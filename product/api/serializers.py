@@ -10,7 +10,7 @@ class TypeProductSerializer(RelationModelSerializer):
         read_only_fields = ('id',)
 
 
-class ProductSerialzier(serializers.ModelSerializer):
+class ProductSerialzier(RelationModelSerializer):
     type_product = TypeProductSerializer(read_only=True)
 
     class Meta:

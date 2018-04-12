@@ -29,6 +29,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
 
 class PetSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Pet
         fields = '__all__'
@@ -72,6 +73,6 @@ class UpdateProfileSerializer(serializers.ModelSerializer):
             if pet_qs.exists():
                 _pet = pet_qs.first()
             else:
-                _pet = Pet.objects.create(**pet_data)
+                _pet = Pet.objects.create(**pet)
             instance.pet.add(_pet)
         return instance

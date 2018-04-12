@@ -34,6 +34,7 @@ THIDRS_APPS = [
 MEU_APPS = [
     'product',
     'custumer',
+    'order',
 ]
 
 INSTALLED_APPS = NATIVE_APPS + THIDRS_APPS + MEU_APPS

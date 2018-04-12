@@ -6,3 +6,4 @@ db.sqlite3
 custumer/api/__pycache__/
 product/api/__pycache__/
 product/migrations/__pycache__/
+
