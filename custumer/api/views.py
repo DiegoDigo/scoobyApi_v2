@@ -1,7 +1,11 @@
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from custumer.models import Profile, User
-from custumer.api.serializers import CreateProfileSerializer, CreateUserSerializer
+from custumer.api.serializers import (
+    CreateProfileSerializer,
+    CreateUserSerializer,
+    UpdateProfileSerializer
+)
 
 
 class CreateUser(generics.CreateAPIView):
@@ -11,12 +15,9 @@ class CreateUser(generics.CreateAPIView):
 
 
 class UpdateProfile(generics.UpdateAPIView):
-    serializer_class = CreateProfileSerializer
+    serializer_class = UpdateProfileSerializer
     queryset = Profile.objects.all()
     permission_classes = [AllowAny]
-
-    def get_queryset(self):
-        return Profile.objects.get(user=self.request.user)
 
 
 class CreateProfile(generics.CreateAPIView):
